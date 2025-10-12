@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANNA TIKHONOVA — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+
+    /* =========================================
+       1) Base / Reset / Typography
+       ========================================= */
+    *, *::before, *::after { 
+      box-sizing: 
+      border-box;
+    }
+
+    html, body { 
+      height: 100%; 
+    }
+
+    html { 
+      scrollbar-gutter: stable; 
+    }
+
+    body { 
+      margin: 0; 
+      font: 16px/1.6 'Montserrat', sans-serif; 
+      color: #999999; 
+      background: #fff; 
+      overflow-y: scroll; 
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, video { display: block; width: 100%; height: auto; }
+
+    /* =========================================
+       2) Layout
+       ========================================= */
+
+    .layout 
+    { 
+      display: flex; 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      min-height: 100vh; 
+    }
+    .content 
+    { 
+      flex: 1; 
+      padding: 32px; 
+    }
+
+    /* Sidebar (single, consolidated definition) */
+
+    .sidebar 
+    {
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      height: 100vh;
+      width: clamp(260px, 26vw, 380px);
+      flex: 0 0 clamp(260px, 26vw, 380px);
+      padding: 32px 24px; 
+      background: #fff;
+      box-sizing: border-box;
+      text-align: center; 
+    }
+    .brand 
+    { 
+      display: block; 
+      font-weight: 700; 
+      font-size: 22px; 
+      letter-spacing: .2px; 
+      margin-bottom: 28px; 
+      color: #111; 
+    }
+
+    @media (max-width: 900px) {
+  .sidebar {
+    position: static; 
+    height: auto;
+    width: 100%;
+    flex: 0 0 100%;
+  }
+}
+    /* Nav */
+
+    .nav { display: block; }
+    .nav-group { margin-bottom: 10px; }
+    .nav ul { margin: 0; padding: 0 0 12px 0; list-style: none; }
+
+    .group-title, .nav a { display: block; padding: 6px 12px; box-sizing: border-box; }
+    .nav a { color: #777; font-size: 14px; white-space: nowrap; }
+    .nav a:hover { color: #000; }
+
+    .group-title {
+      font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: .08em; font-weight: 600;
+      margin: 8px 0 4px; border-radius: 4px;
+    }
+    .active { background: #e7efff; color: #111; border-radius: 4px; }
+
+    /* =========================================
+       3) Grids & Cards
+       ========================================= */
+
+    .grid 
+    { 
+      display: grid; 
+      grid-template-columns: 1fr; 
+      gap: 16px; 
+    }
+    @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+    .card { position: relative; overflow: hidden; border: 1px solid #e5e5e5; border-radius: 12px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .grid a.card { color: inherit; }
+
+    .overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0); opacity: 0; transition: all .25s ease; }
+    .card:hover .overlay { background: rgba(0,0,0,.45); opacity: 1; }
+
+    .badge { background: rgba(255,255,255,.85); border-radius: 10px; padding: 12px 16px; text-align: center; backdrop-filter: saturate(180%) blur(6px); }
+    .badge .year { font-size: 12px; color: #666; letter-spacing: .12em; }
+    .badge .title { font-size: 16px; font-weight: 600; color: #111; text-transform: uppercase; letter-spacing: .08em; }
+
+    .columns { column-count: 1; column-gap: 16px; }
+    @media (min-width: 640px) { .columns { column-count: 2; } }
+    @media (min-width: 1024px) { .columns { column-count: 3; } }
+
+    .figure { break-inside: avoid; margin: 0 0 16px; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+
+    .card-soft { border: 1px solid #e9e6dd; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 24px rgba(0,0,0,.06); padding: 24px; }
+
+    /* Headers */
+    .h1 { 
+      font-size: 22px; 
+      font-weight: 700; 
+      margin: 0; 
+      color: #000000; 
+     
+    }
+    .sub { 
+      font-size: 13px; 
+      color: #666; 
+    }
+    .back { 
+      font-size: 14px; 
+    }
+
+    .section-title { 
+      font-weight: 200; 
+      font-size: 50px; 
+      letter-spacing: .0px; 
+      text-transform: uppercase; 
+      color: #000000; 
+      text-align: center; 
+      margin: 0 0 50px; 
+      border-bottom: 1px solid #ddd; 
+      padding-bottom: 5px; 
+      display: block; 
+    }
+
+    /* =========================================
+       4) Resume page
+       ========================================= */
+    .resume { display: grid; grid-template-columns: 300px 1fr; gap: 24px; }
+    @media (max-width: 900px) { .resume { grid-template-columns: 1fr; } }
+
+    .resume-left { display: flex; flex-direction: column; gap: 12px; }
+    .resume-left .photo { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; margin: 0 0 8px 0; }
+
+    .resume-aside { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .resume-aside .block { padding: 16px 18px; border-top: 1px solid #dde3eb; }
+    .resume-aside .block h3 { margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: #334155; }
+    .resume-aside .kv { display: flex; justify-content: space-between; margin: 6px 0; font-size: 14px; color: #374151; }
+    .resume-aside .pill { display: inline-block; background: #d8e1f0; color: #334155; padding: 6px 10px; border-radius: 10px; margin: 4px 4px 0 0; font-size: 13px; }
+
+    .resume-main { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .resume-main h2 { text-align: center; font-weight: 700; font-size: 20px; letter-spacing: .5px; color: #64748b; margin: 40px auto 24px; border: none; display: block; }
+    .resume-main .summary, .resume-main .timeline-item .what div { font-size: 14px; color: #777; line-height: 1.6; }
+
+    .timeline-item { display: grid; grid-template-columns: 140px 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid #f0f2f5; }
+    .timeline-item:first-child { border-top: none; }
+    .resume-main .when { font-weight: 400; font-size: 14px; text-transform: none; color: #777; margin-bottom: 8px; }
+
+    /* =========================================
+       5) Modeling Characters (mc-*)
+       ========================================= */
+    .mc-header { 
+      margin-bottom: 50px; 
+      text-align: center; 
+    }
+    .mc-grid.two { 
+      display: grid; 
+      grid-template-columns: repeat(2, minmax(0, 1fr)); 
+      gap: 20px; 
+    }
+    .mc-full { 
+      margin: 0 0 20px; 
+    }
+    .mc-caption { 
+      margin: 50px 0; 
+      font-size: 16px; 
+      color: #999; 
+      text-align: center; 
+    }
+    .mc-footer { 
+      margin-top: 50px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 16px; 
+    }
+
+    /* Resize images and videos in Modeling Characters */
+    .mc-grid img, 
+    .mc-full img { 
+      max-width: auto; 
+      height: auto; 
+      margin: 0 auto; 
+      display: block; }
+    .mc-grid video { 
+      max-width: auto; 
+      height: auto;
+      margin: 0 auto;
+      display: block; }
+
+    /* =========================================
+       6) Utilities
+       ========================================= */
+    .sr-only { 
+      position: absolute; 
+      width: 1px; 
+      height: 1px; 
+      padding: 0; 
+      margin: -1px; 
+      overflow: hidden; 
+      clip: rect(0,0,1px,1px); 
+      border: 0; 
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Sidebar Navigation">
+      <div class="brand">ANNA TIKHONOVA</div>
+      <nav class="nav" aria-label="Primary">
+        <div class="nav-group">
+          <a class="group-title" href="#/group/gallery">‘GALLERY’ THE GAME</a>
+          <ul>
+            <li><a href="#/gallery/characters">Modeling Characters</a></li>
+            <li><a href="#/gallery/objects">Game objects</a></li>
+            <li><a href="#/gallery/pets">Pets</a></li>
+            <li><a href="#/gallery/animations">Simple Animations</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <a class="group-title" href="#/group/art">ART</a>
+          <ul>
+            <li><a href="#/gallery/ads">ADS Art</a></li>
+            <li><a href="#/gallery/vector">Vector Arts</a></li>
+            <li><a href="#/gallery/windows">Windows</a></li>
+          </ul>
+        </div>
+        <a href="#/about" class="group-title">About me</a>
+        <a href="#/contact" class="group-title">Contact</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div id="app" role="main"></div>
+    </main>
+  </div>
+
+  <script>
+    // =========================================
+    // Data model (unified)
+    // =========================================
+    
+    const CATALOG = {
+      characters: {
+        label: 'Modeling Characters',
+        cover: { type: 'image', src: 'assets/characters/placeholder_1.png' },
+        items: [
+          'assets/characters/placeholder_1.png',
+          'assets/characters/placeholder_2.png',
+          'assets/characters/placeholder_3.png',
+        ],
+      },
+      objects: {
+        label: 'Game objects',
+        cover: { type: 'image', src: 'assets/objects/placeholder_1.png' },
+        items: [
+          'assets/objects/placeholder_1.png',
+          'assets/objects/placeholder_2.png',
+          'assets/objects/placeholder_3.png',
+        ],
+      },
+      pets: {
+        label: 'Pets',
+        cover: { type: 'image', src: 'assets/pets/placeholder_1.png' },
+        items: [
+          'assets/pets/placeholder_1.png',
+          'assets/pets/placeholder_2.png',
+          'assets/pets/placeholder_3.png',
+        ],
+      },
+      animations: {
+        label: 'Simple Animations',
+        cover: { type: 'video', src: 'assets/animations/walk_cycle.mp4', poster: 'assets/animations/walk_cycle_poster.png' },
+        items: [ 'assets/animations/walk_cycle.mp4' ],
+      },
+      
+      ads: {
+        label: 'ADS Art',
+        cover: { type: 'image', src: 'assets/ads/placeholder_1.png' },
+        items: [
+          'assets/ads/placeholder_1.png',
+          'assets/ads/placeholder_2.png',
+          'assets/ads/placeholder_3.png',
+        ],
+      },
+      vector: {
+        label: 'Vector Arts',
+        cover: { type: 'image', src: 'assets/vector/placeholder_1.png' },
+        items: [ 'assets/vector/placeholder_1.png' ],
+      },
+      windows: {
+        label: 'Windows',
+        cover: { type: 'image', src: 'assets/windows/placeholder_1.png' },
+        items: [ 'assets/windows/placeholder_1.png' ],
+      },
+    };
+
+    const GROUPS = {
+      gallery: ['characters', 'objects', 'pets', 'animations', 'gallery-decor'],
+      art: ['ads', 'vector', 'windows'],
+    };
+
+    // =========================================
+    // Helpers
+    // =========================================
+    const y = () => new Date().getFullYear();
+
+    function elCover(key) {
+      const cfg = CATALOG[key];
+      if (!cfg) return '';
+      const { cover, label } = cfg;
+      if (cover.type === 'video') {
+        const posterAttr = cover.poster ? ` poster="${cover.poster}"` : '';
+        return `<video src="${cover.src}" muted loop autoplay playsinline${posterAttr}></video>`;
+        }
+      return `<img src="${cover.src}" alt="${label}" loading="lazy" />`;
+    }
+
+    function renderGrid(keys = null) {
+      const items = Array.isArray(keys) ? keys : Object.keys(CATALOG);
+      const gridClass = Array.isArray(keys) ? 'grid2' : 'grid';
+      return `<div class="${gridClass}">
+        ${items
+          .map(
+            (key) => `
+          <a href="#/gallery/${key}" class="card" aria-label="Open ${CATALOG[key]?.label ?? key}">
+            ${elCover(key)}
+            <div class="overlay">
+              <div class="badge">
+                <div class="year">${y()}</div>
+                <div class="title">${CATALOG[key]?.label ?? key}</div>
+              </div>
+            </div>
+          </a>`
+          )
+          .join('')}
+      </div>`;
+    }
+
+    function renderGallery(slug) {
+      const cfg = CATALOG[slug];
+      const label = cfg?.label || 'Gallery';
+
+      // Special template for Modeling Characters
+      if (slug === 'characters') {
+        return `
+          <div class="mc">
+            <header class="mc-header">
+              <h1 class="section-title">${label}</h1>
+              <p class="mc-intro">Modeling &amp; handpaint texturing characters, created for the project “Gallery: Coloring book &amp; Decor” by Beresnev Games.</p>
+            </header>
+
+            <div class="mc-grid two">
+              <figure class="figure"><img src="assets/characters/Mother_1.png" alt="Character 1" loading="lazy"></figure>
+              <figure class="figure"><img src="assets/characters/Father_1.png" alt="Character 2" loading="lazy"></figure>
+            </div>
+
+            <figure class="mc-full figure"><img src="assets/characters/Mother_solid.png" alt="Modeling sheet 1" loading="lazy"></figure>
+            <figure class="mc-full figure"><img src="assets/characters/Mother_prewiew.png" alt="Modeling sheet 2" loading="lazy"></figure>
+
+            <div class="mc-grid two">
+              <figure class="figure"><img src="assets/characters/Mother_cage.png" alt="Turntable 1" loading="lazy"></figure>
+              <figure class="figure"><img src="assets/characters/Mother_front.png" alt="Turntable 2" loading="lazy"></figure>
+            </div>
+
+            <div class="mc-caption">Work process:</div>
+              <figure class="figure"><img src="assets/characters/Mother_workprocess.png" alt="Process 1" loading="lazy"></figure>
+            </div>
+
+            <div class="mc-caption">The final character animation after rigging:</div>
+            <div class="mc-grid two">
+              <figure class="figure"><video controls data-first-poster src="assets/characters/Mother_video.mp4"></video></figure>
+              <figure class="figure"><video controls data-first-poster src="assets/characters/Father_video.mp4"></video></figure>
+            </div>
+
+            <footer class="mc-footer">
+              <div>Thank you for watching! :)</div>
+              <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">↑&nbsp;Back to Top</a>
+            </footer>
+          </div>`;
+      }
+
+      // Generic gallery
+      const header = `
+        <div style="display:flex;align-items:end;justify-content:space-between;margin-bottom:16px">
+          <div>
+            <h1 class="h1">${label}</h1>
+            <div class="sub">${slug}</div>
+          </div>
+          <a class="back" href="#/">← Back to home</a>
+        </div>`;
+
+      if (slug === 'animations') {
+        return (
+          header +
+          `<div class="grid">${(cfg?.items || [])
+            .map((src) => `<div class="card"><video controls src="${src}"></video></div>`)
+            .join('')}</div>`
+        );
+      }
+
+      return (
+        header +
+        `<div class="columns">${(cfg?.items || [])
+          .map((src) => `<figure class="figure"><img src="${src}" alt="${label}" loading="lazy"></figure>`)
+          .join('')}</div>`
+      );
+    }
+
+    function renderContact() {
+      return `
+        <div class="card-soft">
+          <h1 class="section-title">Contact</h1>
+          <p><strong>Email:</strong> <a href="mailto:anntssscdo@gmail.com">anntssscdo@gmail.com</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/anna-tikhonova-57116127a" target="_blank" rel="noreferrer">linkedin profile</a></p>
+          <p><strong>Telegram:</strong> <a href="https://t.me/anntssss" target="_blank" rel="noreferrer">@anntssss</a></p>
+        </div>`;
+    }
+
+    function renderAbout() {
+      return `
+        <div>
+          <h1 class="section-title">About me</h1>
+          <div class="resume">
+            <div class="resume-left">
+              <img class="photo" src="assets/Portrait.png" alt="Profile photo" />
+              <aside class="resume-aside" aria-label="Profile details">
+                <div class="block">
+                  <h3>Anna Tikhonova</h3>
+                  <div style="color:#64748b">3D Generalist</div>
+                </div>
+                <div class="block">
+                  <h3>Skills</h3>
+                  <span class="pill">Blender</span>
+                  <span class="pill">Substance Painter</span>
+                  <span class="pill">Adobe Photoshop</span>
+                  <span class="pill">Adobe Illustrator</span>
+                  <span class="pill">ZBrush</span>
+                  <span class="pill">Unity</span>
+                  <span class="pill">Animation</span>
+                </div>
+                <div class="block">
+                  <h3>Languages</h3>
+                  <div class="kv"><span>Russian</span><span>Native</span></div>
+                  <div class="kv"><span>English</span><span>Intermediate</span></div>
+                  <div class="kv"><span>Czech</span><span>Elementary</span></div>
+                </div>
+              </aside>
+            </div>
+
+            <section class="resume-main">
+              <div class="summary">
+                Dynamic 3D and 2D Artist with 10 years of experience in the games industry. Skilled in creating high-quality 3D models, textures, animations, and scene integration. Proficient in using specialized software with strong learning abilities.
+              </div>
+              <h2>Work History</h2>
+              <div class="timeline-item">
+                <div class="when">2018-08 – Current</div>
+                <div class="what">
+                  <div class="role">3d Generalist</div>
+                  <div class="place">BeresnevGames, Prague, Czechia</div>
+                  <div>Full production process, sometimes including concept development. Creating 3D models from scratch or based on existing materials, texturing, UV mapping, hand-painted textures. Creating animations and integrating them into Unity scenes, assembling game scenes, adding animations, creating prefabs. Collaborative work with animators, programmers, and artists.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="when">2016-02 – 2018-08</div>
+                <div class="what">
+                  <div class="role">2d Artist</div>
+                  <div class="place">BeresnevGames, Krasnoyarsk, Russia</div>
+                  <div>Creating illustrations on a given theme, designing icons, UI, concepts for mobile applications and games, characters and environments for animation, sprites for mobile games.</div>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="when">2014-05 – 2016-01</div>
+                <div class="what">
+                  <div class="role">3d/2d Artist</div>
+                  <div class="place">NTK, Krasnoyarsk, Russia</div>
+                  <div>Developing slot machine games, concepts, 3D modeling, rigging, animations, mixing 2D sprites and 3D renders, applying post-effects to videos.</div>
+                </div>
+              </div>
+              <h2>Education</h2>
+              <div class="timeline-item">
+                <div class="when">2014-05 – 2016-01</div>
+                <div class="what">
+                  <div class="role">Associate of Arts: Graphic Illustration, Technical Drawing</div>
+                  <div class="place">Siberian Federal University — Krasnoyarsk, Russia</div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>`;
+    }
+
+    // =========================================
+    // Router
+    // =========================================
+    function parseHash() {
+      const cleaned = (location.hash || '#/').replace(/^#\/?/, '');
+      const [base = '', slug = ''] = cleaned.split('/');
+      return { base, slug };
+    }
+
+    function setActiveSidebar({ base, slug }) {
+      // remove previous
+      document.querySelectorAll('.group-title, .nav a').forEach((el) => el.classList.remove('active'));
+
+      const sel = [];
+      if (!base) sel.push('');
+      if (base === 'group' && slug) sel.push(`a.group-title[href*="#/group/${slug}"]`);
+      if (base === 'about') sel.push('a.group-title[href="#/about"]');
+      if (base === 'contact') sel.push('a.group-title[href="#/contact"]');
+
+      sel.forEach((s) => {
+        const el = s && document.querySelector(s);
+        if (el) el.classList.add('active');
+      });
+    }
+
+    function route() {
+      const app = document.getElementById('app');
+      if (!app) return;
+      const { base, slug } = parseHash();
+      setActiveSidebar({ base, slug });
+
+      switch (base) {
+        case '':
+          app.innerHTML = renderGrid();
+          break;
+        case 'group':
+          app.innerHTML = renderGrid(GROUPS[slug] || []);
+          break;
+        case 'gallery':
+          app.innerHTML = renderGallery(slug);
+          break;
+        case 'about':
+          app.innerHTML = renderAbout();
+          break;
+        case 'contact':
+          app.innerHTML = renderContact();
+          break;
+        default:
+          app.innerHTML = renderGrid();
+      }
+    }
+
+    // =========================================
+    // Events
+    // =========================================
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest && e.target.closest('a[href^="#/"]');
+      if (!a) return;
+      e.preventDefault();
+      const target = a.getAttribute('href');
+      if (location.hash !== target) location.hash = target;
+      route();
+    });
+
+    window.addEventListener('hashchange', route);
+    window.addEventListener('DOMContentLoaded', route);
+  
+    // Generate poster from the first frame for videos with [data-first-poster]
+    function makePosterFromFirstFrame(video) {
+      if (!video) return;
+      const draw = () => {
+        if (!video.videoWidth || !video.videoHeight) return;
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        try {
+          const dataURL = canvas.toDataURL('image/jpeg', 0.85);
+          video.setAttribute('poster', dataURL);
+          if (!video.paused) video.pause();
+          try { video.currentTime = 0; } catch (_) {}
+        } catch (e) { /* CORS may block toDataURL */ }
+      };
+
+      const onSeeked = () => { draw(); video.removeEventListener('seeked', onSeeked); };
+      const onReady = () => {
+        video.addEventListener('seeked', onSeeked, { once: true });
+        try { video.currentTime = 0; } catch (_) {}
+      };
+
+      if (video.readyState >= 1) onReady();
+      else video.addEventListener('loadedmetadata', onReady, { once: true });
+    }
+
+    function generateFirstFramePosters() {
+      const vids = Array.from(document.querySelectorAll('video[data-first-poster]'));
+      vids.forEach(makePosterFromFirstFrame);
+    }
+
+    window.addEventListener('DOMContentLoaded', generateFirstFramePosters);
+
+  </script>
+</body>
+</html>
