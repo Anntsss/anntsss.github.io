@@ -1,2 +1,0 @@
-# anntsss.github.io
-Portfolio
