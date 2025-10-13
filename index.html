@@ -937,6 +937,49 @@
 
 
 
+<script>
+/* Highlight ONLY the selected item.
+   Group titles get active ONLY for #/group/... routes. */
+function setActiveNav() {
+  const links = Array.from(document.querySelectorAll('.sidebar a, .nav a'));
+  links.forEach(a => a.classList.remove('active'));
+
+  const hash = window.location.hash || '#/';
+
+  // 1) Если открыт именно экран группы — активируем ТОЛЬКО заголовок группы
+  if (hash.startsWith('#/group/')) {
+    const groupLink = links.find(a => a.getAttribute('href') === hash);
+    if (groupLink) groupLink.classList.add('active');
+    return; // и выходим — ничего больше не подсвечиваем
+  }
+
+  // 2) Во всех остальных случаях активируем ТОЛЬКО конкретный пункт
+  // Ищем точное совпадение, затем startsWith, но исключаем ссылки-группы
+  let current =
+    links.find(a => a.getAttribute('href') === hash) ||
+    links.find(a => {
+      const href = a.getAttribute('href') || '';
+      return !href.startsWith('#/group/') && hash.startsWith(href);
+    });
+
+  if (current) current.classList.add('active');
+}
+
+// уже должны быть эти вызовы:
+window.addEventListener('hashchange', setActiveNav);
+document.addEventListener('DOMContentLoaded', setActiveNav);
+
+// если есть route(), вызываем после рендера
+if (typeof route === 'function') {
+  const originalRoute = route;
+  window.route = function () {
+    const r = originalRoute.apply(this, arguments);
+    setActiveNav();
+    return r;
+  };
+}
+</script>
+
 
 
 </body>
