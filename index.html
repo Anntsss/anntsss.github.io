@@ -666,49 +666,52 @@
 
   <!-- Smart Back-to-Top: desktop = top of page, mobile = sidebar top -->
   <script>
-  (function () {
-    function scrollToTarget() {
-      const isMobile = window.matchMedia('(max-width: 900px)').matches;
-      if (isMobile) {
-        const menu = document.querySelector('.sidebar');
-        if (menu) {
-          const y = menu.getBoundingClientRect().top + window.pageYOffset;
-          window.scrollTo({ top: y, behavior: 'smooth' });
-          return;
-        }
+(function () {
+  function scrollToTarget() {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (isMobile) {
+      const menu = document.querySelector('.sidebar');
+      if (menu) {
+        const offset = 10; // small gap below the top edge
+        const y = menu.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        // Safari/iOS fix: force an extra smooth scroll to the same spot
+        setTimeout(() => window.scrollTo({ top: y, behavior: 'smooth' }), 80);
+        return;
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    // Desktop: scroll to absolute top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-    function updateBackToTopButton() {
-      const button = document.querySelector('.back-to-top');
-      if (!button) return;
+  function updateBackToTopButton() {
+    const button = document.querySelector('.back-to-top');
+    if (!button) return;
 
-      const isMobile = window.matchMedia('(max-width: 900px)').matches;
-      button.textContent = isMobile ? 'Main menu' : '↑ Back to Top';
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    button.textContent = isMobile ? '↑ Main menu' : '↑ Back to Top';
 
-      // Replace button to remove previous listeners
-      const newButton = button.cloneNode(true);
-      button.parentNode.replaceChild(newButton, button);
+    // Rebuild button to clear old listeners
+    const newButton = button.cloneNode(true);
+    button.parentNode.replaceChild(newButton, button);
 
-      // Assign the correct click behavior
-      newButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        scrollToTarget();
-      });
-    }
+    newButton.addEventListener('click', function (e) {
+      e.preventDefault();
+      scrollToTarget();
+    });
+  }
 
-    // Run when the document is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateBackToTopButton);
-    } else {
-      updateBackToTopButton();
-    }
+  // Run once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateBackToTopButton);
+  } else {
+    updateBackToTopButton();
+  }
 
-    // Update on window resize
-    window.addEventListener('resize', updateBackToTopButton);
-  })();
-  </script>
+  // Update dynamically on resize
+  window.addEventListener('resize', updateBackToTopButton);
+})();
+</script>
 
 </body>
 </html>
