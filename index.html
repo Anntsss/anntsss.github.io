@@ -419,12 +419,32 @@
 }
 .global-back-button .back-to-top:hover { color: #000; }
 }
+
+/*==========================================================*/
+/* Убираем рамки и тени у всех картинок на сайте */
+img, 
+.figure, 
+.figure img, 
+.mc img, 
+.resume-main img, 
+.resume-aside img {
+  box-shadow: none !important;
+  border: none !important;
+}
+/*==========================================================*/
+
+
+
   </style>
+
+
+
+
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar" aria-label="Sidebar Navigation">
-      <div class="brand">ANNA TIKHONOVA</div>
+      <a class="brand" href="#/home">ANNA TIKHONOVA</a>
       <nav class="nav" aria-label="Primary">
         <div class="nav-group">
           <a class="group-title" href="#/group/gallery">‘GALLERY’ THE GAME</a>
@@ -523,6 +543,8 @@
       art: ['ads', 'vector', 'windows'],
     };
 
+    
+
     // =========================================
     // Helpers
     // =========================================
@@ -538,6 +560,17 @@
         }
       return `<img src="${cover.src}" alt="${label}" loading="lazy" />`;
     }
+
+  function renderHome() {
+  return `
+    <div class="home">
+      <h1 class="section-title">Welcome</h1>
+      <div class="figure" style="max-width: 720px; margin: 0 auto;">
+        <img src="assets/dribble.png" alt="Cover" loading="lazy">
+      </div>
+    </div>
+  `;
+}
 
     function renderGrid(keys = null) {
       const items = Array.isArray(keys) ? keys : Object.keys(CATALOG);
@@ -563,6 +596,8 @@
     function renderGallery(slug) {
       const cfg = CATALOG[slug];
       const label = cfg?.label || 'Gallery';
+
+    
 
       // Special template for Modeling Characters
       if (slug === 'characters') {
@@ -738,32 +773,39 @@
       });
     }
 
-    function route() {
-      const app = document.getElementById('app');
-      if (!app) return;
-      const { base, slug } = parseHash();
-      setActiveSidebar({ base, slug });
+   function route() {
+  const app = document.getElementById('app');
+  if (!app) return;
 
-      switch (base) {
-        case '':
-          app.innerHTML = renderGrid();
-          break;
-        case 'group':
-          app.innerHTML = renderGrid(GROUPS[slug] || []);
-          break;
-        case 'gallery':
-          app.innerHTML = renderGallery(slug);
-          break;
-        case 'about':
-          app.innerHTML = renderAbout();
-          break;
-        case 'contact':
-          app.innerHTML = renderContact();
-          break;
-        default:
-          app.innerHTML = renderGrid();
-      }
-    }
+  const { base, slug } = parseHash();
+  setActiveSidebar({ base, slug });
+
+  // если хэша нет или это '#/' → редиректим на home
+  if (!base) {
+    location.replace('#/home');
+    return;
+  }
+
+  switch (base) {
+    case 'home':
+      app.innerHTML = renderHome();
+      break;
+    case 'group':
+      app.innerHTML = renderGrid(GROUPS[slug] || []);
+      break;
+    case 'gallery':
+      app.innerHTML = renderGallery(slug);
+      break;
+    case 'about':
+      app.innerHTML = renderAbout();
+      break;
+    case 'contact':
+      app.innerHTML = renderContact();
+      break;
+    default:
+      app.innerHTML = renderHome(); // запасной вариант
+  }
+}
 
     // =========================================
     // Events
@@ -778,7 +820,10 @@
     });
 
     window.addEventListener('hashchange', route);
-    window.addEventListener('DOMContentLoaded', route);
+   window.addEventListener('DOMContentLoaded', () => {
+  if (!location.hash) location.replace('#/home');
+  route();
+});
   
     // Generate poster from the first frame for videos with [data-first-poster]
     function makePosterFromFirstFrame(video) {
