@@ -240,6 +240,37 @@
       clip: rect(0,0,1px,1px); 
       border: 0; 
     }
+
+    /* ===== Responsive layout for mobile ===== */
+@media (max-width: 900px) {
+  .layout {
+    flex-direction: column; /* вместо бок о бок — теперь вертикально */
+  }
+
+  .sidebar {
+    position: static;       /* больше не "липнет" при скролле */
+    width: 100%;            /* растягивается на всю ширину */
+    min-width: 0;           /* убираем ограничения */
+    max-width: 100%;
+    flex: 0 0 auto;
+    height: auto;           /* высота под контент */
+    border-right: none;     /* убираем границу справа */
+    border-bottom: 1px solid #e5e5e5; /* добавляем тонкую разделительную линию */
+    text-align: center;     /* всё остаётся по центру */
+    background: #fff;
+    z-index: 10;
+  }
+
+  .content {
+    width: 100%;
+    padding: 16px; /* немного меньше отступов на мобильных */
+  }
+
+  body {
+    overflow-x: hidden; /* ← предотвращает горизонтальную прокрутку */
+  }
+}
+
   </style>
 </head>
 <body>
