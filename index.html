@@ -95,7 +95,7 @@
     .nav a:hover { color: #000; }
 
     .group-title {
-      font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: .08em; font-weight: 600;
+      font-size: 12px; color: #999999; text-transform: uppercase; letter-spacing: .08em; font-weight: 600;
       margin: 8px 0 4px; border-radius: 4px;
     }
     .active { background: #e7efff; color: #111; border-radius: 4px; }
@@ -115,7 +115,14 @@
 
     .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 
-    .card { position: relative; overflow: hidden; border: 1px solid #e5e5e5; border-radius: 12px; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .card { 
+      position: relative; 
+      overflow: hidden; 
+      border: 0px solid #e5e5e5; 
+      border-radius: 1px; 
+      background: #fff; 
+      box-shadow: 0 1px 4px rgba(0,0,0,.04); 
+    }
     .grid a.card { color: inherit; }
 
     .overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0); opacity: 0; transition: all .25s ease; }
@@ -129,7 +136,14 @@
     @media (min-width: 640px) { .columns { column-count: 2; } }
     @media (min-width: 1024px) { .columns { column-count: 3; } }
 
-    .figure { break-inside: avoid; margin: 0 0 16px; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+    .figure { 
+      break-inside: avoid; 
+      margin: 0 0 16px; 
+      border: 1px solid #e5e5e5; 
+      border-radius: 0px; 
+      overflow: hidden; 
+      background: #fff; 
+      box-shadow: 0 1px 4px rgba(0,0,0,.04); }
 
     .card-soft { border: 1px solid #e9e6dd; background: #ffffff; border-radius: 16px; box-shadow: 0 10px 24px rgba(0,0,0,.06); padding: 24px; }
 
@@ -165,25 +179,101 @@
     /* =========================================
        4) Resume page
        ========================================= */
-    .resume { display: grid; grid-template-columns: 300px 1fr; gap: 24px; }
+    .resume { 
+      display: grid; 
+      grid-template-columns: 300px 1fr; 
+      gap: 24px; 
+    }
     @media (max-width: 900px) { .resume { grid-template-columns: 1fr; } }
 
-    .resume-left { display: flex; flex-direction: column; gap: 12px; }
-    .resume-left .photo { width: 160px; height: 160px; object-fit: cover; border-radius: 50%; margin: 0 0 8px 0; }
+    .resume-left { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+      gap: 12px; 
+    }
+    .resume-left .photo { 
+      width: 160px; 
+      height: 160px; 
+      object-fit: cover; 
+      border-radius: 50%; 
+      margin: 0 0 10px 0; 
+    }
 
-    .resume-aside { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
-    .resume-aside .block { padding: 16px 18px; border-top: 1px solid #dde3eb; }
-    .resume-aside .block h3 { margin: 0 0 10px 0; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; color: #334155; }
-    .resume-aside .kv { display: flex; justify-content: space-between; margin: 6px 0; font-size: 14px; color: #374151; }
-    .resume-aside .pill { display: inline-block; background: #d8e1f0; color: #334155; padding: 6px 10px; border-radius: 10px; margin: 4px 4px 0 0; font-size: 13px; }
+    .resume-aside { 
+      background: #fff; 
+      border: 0px solid #e5e7eb; 
+      border-radius: 0px; 
+      overflow: hidden; 
+      box-shadow: 0 0px 0px rgba(0,0,0,.04); 
+    }
+    .resume-aside .block { 
+      padding: 16px 18px; 
+      border-top: 0px solid #dde3eb; 
+    }
+    .resume-aside .block h3 { 
+      margin: 0 0 10px 0; 
+      font-size: 16px; 
+      text-transform: uppercase; 
+      letter-spacing: .5px;  
+      color: #999999; 
+      text-transform: uppercase;
+    }
+    .resume-aside .kv { 
+      display: flex; 
+      justify-content: space-between; 
+      margin: 6px 0; font-size: 14px; 
+      color: #999999; 
+    }
+    .resume-aside .pill { 
+      display: inline-block; 
+      background: #f7f7f7; 
+      color: #999999; 
+      padding: 6px 10px; 
+      border-radius: 10px; 
+      margin: 4px 4px 0 0; 
+      font-size: 13px; 
+    }
 
-    .resume-main { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
-    .resume-main h2 { text-align: center; font-weight: 700; font-size: 20px; letter-spacing: .5px; color: #64748b; margin: 40px auto 24px; border: none; display: block; }
-    .resume-main .summary, .resume-main .timeline-item .what div { font-size: 14px; color: #777; line-height: 1.6; }
+    .resume-main { 
+      background: #fff; 
+      border: 0px solid #e5e7eb; 
+      border-radius: 12px; 
+      padding: 20px; 
+      box-shadow: 0 0px 0px rgba(0,0,0,.04); 
+    }
+    .resume-main h2 { 
+      text-align: center; 
+      font-weight: 700; 
+      font-size: 20px; 
+      letter-spacing: .5px; 
+      color: #999999; 
+      margin: 40px auto 24px;
+       border: none; 
+       display: block; 
+      text-transform: uppercase;
+      }
+    .resume-main .summary, .resume-main .timeline-item .what div { 
+      font-size: 14px; 
+      color: #999999; 
+      line-height: 1.6; 
+    }
 
-    .timeline-item { display: grid; grid-template-columns: 140px 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid #f0f2f5; }
+    .timeline-item { 
+      display: grid; 
+      grid-template-columns: 140px 1fr; 
+      gap: 18px; 
+      padding: 14px 0; 
+      border-top: 1px solid #f0f2f5; 
+    }
     .timeline-item:first-child { border-top: none; }
-    .resume-main .when { font-weight: 400; font-size: 14px; text-transform: none; color: #777; margin-bottom: 8px; }
+    .resume-main .when { 
+      font-weight: 400; 
+      font-size: 14px; 
+      text-transform: none;
+      color: #999999; 
+      margin-bottom: 8px; 
+    }
 
     /* =========================================
        5) Modeling Characters (mc-*)
@@ -273,18 +363,18 @@
 }
 
 
-/* Global back button (visible on all pages) */
-/* Global back button (centered at bottom, consistent with site style) */
-/* Global back button — centered and same color as captions */
+
+
+/* Global back button */
 .global-back-button {
   text-align: center;
-  margin: 50px 0 50px;        
+  margin: 100px 0 50px;        
 }
 
 .global-back-button .back-to-top {
   display: inline-block;
-  color: inherit;              
-  font: inherit;              
+  color: #inherit;              
+  font: inherit; 
   text-decoration: none;
   padding: 0;                 
   transition: color .2s ease;
@@ -545,7 +635,7 @@
               <aside class="resume-aside" aria-label="Profile details">
                 <div class="block">
                   <h3>Anna Tikhonova</h3>
-                  <div style="color:#64748b">3D Generalist</div>
+                 <div class="job-title">3D Generalist</div>
                 </div>
                 <div class="block">
                   <h3>Skills</h3>
@@ -559,9 +649,9 @@
                 </div>
                 <div class="block">
                   <h3>Languages</h3>
-                  <div class="kv"><span>Russian</span><span>Native</span></div>
-                  <div class="kv"><span>English</span><span>Intermediate</span></div>
-                  <div class="kv"><span>Czech</span><span>Elementary</span></div>
+                  <div class="kv"><span>Russian</span></div>
+                  <div class="kv"><span>English</span></div>
+                  <div class="kv"><span>Czech</span></div>
                 </div>
               </aside>
             </div>
