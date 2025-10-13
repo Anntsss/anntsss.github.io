@@ -809,7 +809,7 @@
     if (!btn) return;
 
     const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    btn.textContent = isMobile ? 'Main menu' : '↑ Back to Top';
+    btn.textContent = isMobile ? '↑ Main menu' : '↑ Back to Top';
 
     // Reset listeners and bind behavior
     const clone = btn.cloneNode(true);
