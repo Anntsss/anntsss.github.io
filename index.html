@@ -249,29 +249,55 @@
   }
 
   .sidebar {
-    position: static;       /* больше не "липнет" при скролле */
-    width: 100%;            /* растягивается на всю ширину */
-    min-width: 0;           /* убираем ограничения */
+    position: static;       
+    width: 100%;           
+    min-width: 0;         
     max-width: 100%;
     flex: 0 0 auto;
-    height: auto;           /* высота под контент */
-    border-right: none;     /* убираем границу справа */
-    border-bottom: 1px solid #e5e5e5; /* добавляем тонкую разделительную линию */
-    text-align: center;     /* всё остаётся по центру */
+    height: auto;          
+    border-right: none;    
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;   
     background: #fff;
     z-index: 10;
   }
 
   .content {
     width: 100%;
-    padding: 16px; /* немного меньше отступов на мобильных */
+    padding: 16px; 
   }
 
   body {
-    overflow-x: hidden; /* ← предотвращает горизонтальную прокрутку */
+    overflow-x: hidden; 
   }
 }
 
+
+/* Global back button (visible on all pages) */
+/* Global back button (centered at bottom, consistent with site style) */
+/* Global back button — centered and same color as captions */
+.global-back-button {
+  text-align: center;
+  margin: 50px 0 50px;        
+}
+
+.global-back-button .back-to-top {
+  display: inline-block;
+  color: inherit;              
+  font: inherit;              
+  text-decoration: none;
+  padding: 0;                 
+  transition: color .2s ease;
+}
+
+.global-back-button .back-to-top:hover {
+  color: #000;               
+}
+
+@media (max-width: 900px) {
+  .global-back-button { right: 16px; bottom: 16px; }
+  .back-to-top { padding: 12px 16px; font-size: 15px; }
+}
   </style>
 </head>
 <body>
@@ -302,7 +328,12 @@
     </aside>
 
     <main class="content">
+      
       <div id="app" role="main"></div>
+      <div class="global-back-button">
+  <a href="#top" class="back-to-top">↑ Back to Top</a>
+</div>
+
     </main>
   </div>
 
@@ -446,7 +477,7 @@
 
             <footer class="mc-footer">
               <div>Thank you for watching! :)</div>
-              <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">↑&nbsp;Back to Top</a>
+              <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });
             </footer>
           </div>`;
       }
@@ -736,6 +767,56 @@
   window.addEventListener('DOMContentLoaded', scrollToSectionTitle);
 })();
 </script>
+
+
+<script>
+  //* глобальная кнопка "Наверх"
+
+(function () {
+  function scrollToTarget() {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (isMobile) {
+      const menu = document.querySelector('.sidebar');
+      if (menu) {
+        const offset = 10; // small gap below the top edge
+        const y = menu.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        setTimeout(() => window.scrollTo({ top: y, behavior: 'smooth' }), 80); // iOS Safari fix
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateBackButton() {
+    const btn = document.querySelector('.back-to-top');
+    if (!btn) return;
+
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    btn.textContent = isMobile ? 'Main menu' : '↑ Back to Top';
+
+    // Reset listeners and bind behavior
+    const clone = btn.cloneNode(true);
+    btn.parentNode.replaceChild(clone, btn);
+    clone.addEventListener('click', function (e) {
+      e.preventDefault(); // no hash navigation
+      scrollToTarget();
+    });
+  }
+
+  // init & keep in sync
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateBackButton);
+  } else {
+    updateBackButton();
+  }
+  window.addEventListener('resize', updateBackButton);
+})();
+</script>
+
+
+
+
 
 </body>
 </html>
