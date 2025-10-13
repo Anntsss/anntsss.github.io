@@ -663,5 +663,43 @@
     window.addEventListener('DOMContentLoaded', generateFirstFramePosters);
 
   </script>
+
+
+  <!-- Back-to-Top enhancement for mobile only -->
+<script>
+(function () {
+  // Функция плавной прокрутки к верхнему меню
+  function scrollToSidebarTop() {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      const y = sidebar.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+
+  // Добавляем обработчик только для мобильных
+  function bindMobileBackToTop() {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (!isMobile) return; // на десктопе не трогаем
+
+    const backButtons = document.querySelectorAll('a.back-to-top');
+    backButtons.forEach((btn) => {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();       // не переходить по ссылке
+        scrollToSidebarTop();     // прокрутка к верхнему меню
+      });
+    });
+  }
+
+  // Запускаем после загрузки документа
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindMobileBackToTop);
+  } else {
+    bindMobileBackToTop();
+  }
+})();
+</script>
+
+
 </body>
 </html>
