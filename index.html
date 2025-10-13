@@ -53,8 +53,6 @@
 
     /* Sidebar (single, consolidated definition) */
 
-    
-
     .sidebar 
     {
       position: sticky;
@@ -447,7 +445,7 @@
 
             <footer class="mc-footer">
               <div>Thank you for watching! :)</div>
-              <a href="#/gallery/characters" class="back-to-top" onclick="scrollToMenuTop(); return false;">↑&nbsp;Back to Top</a>
+              <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">↑&nbsp;Back to Top</a>
             </footer>
           </div>`;
       }
@@ -663,17 +661,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', generateFirstFramePosters);
-
-// Scroll smoothly to the top menu (sidebar)
-function scrollToMenuTop() {
-  const header = document.querySelector('.sidebar');
-  if (header) {
-    header.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
 
   </script>
 </body>
