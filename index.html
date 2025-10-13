@@ -295,8 +295,24 @@
 }
 
 @media (max-width: 900px) {
-  .global-back-button { right: 16px; bottom: 16px; }
-  .back-to-top { padding: 12px 16px; font-size: 15px; }
+ /* Global back button — centered text style */
+.global-back-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 50px 0 50px;
+  color:inherit;       
+}
+
+.global-back-button .back-to-top {
+  display: inline-block;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  padding: 0;
+  transition: color .2s ease;
+}
+.global-back-button .back-to-top:hover { color: #000; }
 }
   </style>
 </head>
@@ -332,10 +348,10 @@
       <div id="app" role="main"></div>
       <div class="global-back-button">
   <a href="#top" class="back-to-top">↑ Back to Top</a>
-</div>
+  </div>
 
     </main>
-  </div>
+
 
   <script>
     // =========================================
