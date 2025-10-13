@@ -209,9 +209,10 @@
     .mc-footer { 
       margin-top: 50px; 
       display: flex; 
+      flex-direction: column; 
       align-items: center; 
-      justify-content: space-between; 
-      gap: 16px; 
+      text-align: center; 
+      gap: 50px; 
     }
 
     /* Resize images and videos in Modeling Characters */
@@ -661,45 +662,53 @@
     }
 
     window.addEventListener('DOMContentLoaded', generateFirstFramePosters);
-
   </script>
 
-
-  <!-- Back-to-Top enhancement for mobile only -->
-<script>
-(function () {
-  // Функция плавной прокрутки к верхнему меню
-  function scrollToSidebarTop() {
-    const sidebar = document.querySelector('.sidebar');
-    if (sidebar) {
-      const y = sidebar.getBoundingClientRect().top + window.pageYOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+  <!-- Smart Back-to-Top: desktop = top of page, mobile = sidebar top -->
+  <script>
+  (function () {
+    function scrollToTarget() {
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      if (isMobile) {
+        const menu = document.querySelector('.sidebar');
+        if (menu) {
+          const y = menu.getBoundingClientRect().top + window.pageYOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  }
 
-  // Добавляем обработчик только для мобильных
-  function bindMobileBackToTop() {
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    if (!isMobile) return; // на десктопе не трогаем
+    function updateBackToTopButton() {
+      const button = document.querySelector('.back-to-top');
+      if (!button) return;
 
-    const backButtons = document.querySelectorAll('a.back-to-top');
-    backButtons.forEach((btn) => {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();       // не переходить по ссылке
-        scrollToSidebarTop();     // прокрутка к верхнему меню
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      button.textContent = isMobile ? 'Main menu' : '↑ Back to Top';
+
+      // Replace button to remove previous listeners
+      const newButton = button.cloneNode(true);
+      button.parentNode.replaceChild(newButton, button);
+
+      // Assign the correct click behavior
+      newButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        scrollToTarget();
       });
-    });
-  }
+    }
 
-  // Запускаем после загрузки документа
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindMobileBackToTop);
-  } else {
-    bindMobileBackToTop();
-  }
-})();
-</script>
+    // Run when the document is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateBackToTopButton);
+    } else {
+      updateBackToTopButton();
+    }
 
+    // Update on window resize
+    window.addEventListener('resize', updateBackToTopButton);
+  })();
+  </script>
 
 </body>
 </html>
