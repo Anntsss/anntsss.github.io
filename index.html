@@ -713,5 +713,29 @@
 })();
 </script>
 
+<script>
+(function () {
+  function scrollToSectionTitle() {
+    const isMobile = window.matchMedia('(max-width: 900px)').matches;
+    if (!isMobile) return; // only for mobile devices
+
+    // Небольшая задержка, чтобы контент успел подгрузиться
+    setTimeout(() => {
+      const sectionTitle = document.querySelector('.section-title');
+      if (sectionTitle) {
+        const y = sectionTitle.getBoundingClientRect().top + window.pageYOffset - 10; // небольшой зазор
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 300); // 0.3s задержки достаточно
+  }
+
+  // При переходе по ссылке меню (через hashchange)
+  window.addEventListener('hashchange', scrollToSectionTitle);
+
+  // Также при первой загрузке страницы (например, при прямом переходе по #/gallery/characters)
+  window.addEventListener('DOMContentLoaded', scrollToSectionTitle);
+})();
+</script>
+
 </body>
 </html>
