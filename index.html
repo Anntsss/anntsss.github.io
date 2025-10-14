@@ -433,6 +433,21 @@ img,
 }
 /*==========================================================*/
 
+/* Square cards */
+.card {
+  aspect-ratio: 1 / 1;       
+  overflow: hidden;         
+  display: block;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  display: block;
+}
+/*==========================================================*/
 
 
   </style>
@@ -486,7 +501,7 @@ img,
     const CATALOG = {
       characters: {
         label: 'Modeling Characters',
-        cover: { type: 'image', src: 'assets/characters/placeholder_1.png' },
+        cover: { type: 'image', src: 'assets/characters/characters_preview.png' },
         items: [
           'assets/characters/placeholder_1.png',
           'assets/characters/placeholder_2.png',
@@ -495,7 +510,7 @@ img,
       },
       objects: {
         label: 'Game objects',
-        cover: { type: 'image', src: 'assets/objects/placeholder_1.png' },
+        cover: { type: 'image', src: 'assets/objects/room_preview.png' },
         items: [
           'assets/objects/placeholder_1.png',
           'assets/objects/placeholder_2.png',
@@ -504,7 +519,7 @@ img,
       },
       pets: {
         label: 'Pets',
-        cover: { type: 'image', src: 'assets/pets/placeholder_1.png' },
+        cover: { type: 'image', src: 'assets/pets/pig_preview.png' },
         items: [
           'assets/pets/placeholder_1.png',
           'assets/pets/placeholder_2.png',
@@ -513,7 +528,7 @@ img,
       },
       animations: {
         label: 'Simple Animations',
-        cover: { type: 'video', src: 'assets/animations/walk_cycle.mp4', poster: 'assets/animations/walk_cycle_poster.png' },
+        cover: { type: 'video', src: 'assets/animations/walk_cycle.mp4', poster: 'assets/animations/octopus_preview.png' },
         items: [ 'assets/animations/walk_cycle.mp4' ],
       },
       
