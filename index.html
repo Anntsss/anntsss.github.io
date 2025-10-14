@@ -114,12 +114,15 @@
     { 
       display: grid; 
       grid-template-columns: 1fr; 
-      gap: 16px; 
+      gap: 0px; 
     }
     @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
-    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .grid2 { 
+      display: grid; 
+      grid-template-columns: repeat(2, minmax(0, 1fr)); 
+      gap: 0px; }
 
     .card { 
       position: relative; 
@@ -131,10 +134,29 @@
     }
     .grid a.card { color: inherit; }
 
-    .overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0); opacity: 0; transition: all .25s ease; }
-    .card:hover .overlay { background: rgba(0,0,0,.45); opacity: 1; }
+   .overlay{
+  position: absolute; 
+  inset: 0;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.75);           
+  opacity: 0;
+  transition: opacity .25s ease;
+  text-align: center;
+}
+.card:hover .overlay { 
+  opacity: 1; 
+  background: rgba(255, 255, 255, 0.75); /* 75% */
+}
 
-    .badge { background: rgba(255,255,255,.85); border-radius: 10px; padding: 12px 16px; text-align: center; backdrop-filter: saturate(180%) blur(6px); }
+.badge{
+  background: transparent;    
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
     .badge .year { font-size: 12px; color: #666; letter-spacing: .12em; }
     .badge .title { font-size: 16px; font-weight: 600; color: #111; text-transform: uppercase; letter-spacing: .08em; }
 
@@ -450,6 +472,61 @@ img,
 /*==========================================================*/
 
 
+/* --- Full-card hover overlay  */
+.card { 
+  position: relative; 
+  overflow: hidden; 
+  aspect-ratio: 1 / 1; 
+}
+.card img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  display: block; 
+}
+/* Вуаль  */
+.overlay{
+ position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;        
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85); 
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  text-align: center;
+}
+.card:hover .overlay { 
+  opacity: 1; 
+}
+
+/* Внутренний блок */
+.overlay .badge{
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;  
+}
+
+/* Год  */
+.overlay .year{
+  font-size: 18px;
+  color: #999999;
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+/* Заголовок*/
+.overlay .title{
+  font-size: clamp(22px, 2.8vw, 56px);
+  font-weight: 400;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  line-height: 1.2;
+}
+
   </style>
 
 
@@ -501,6 +578,7 @@ img,
     const CATALOG = {
       characters: {
         label: 'Modeling Characters',
+        year: '2023',
         cover: { type: 'image', src: 'assets/characters/characters_preview.png' },
         items: [
           'assets/characters/placeholder_1.png',
@@ -510,6 +588,7 @@ img,
       },
       objects: {
         label: 'Game objects',
+        year: '2022',
         cover: { type: 'image', src: 'assets/objects/room_preview.png' },
         items: [
           'assets/objects/placeholder_1.png',
@@ -519,6 +598,7 @@ img,
       },
       pets: {
         label: 'Pets',
+        year: '2023',
         cover: { type: 'image', src: 'assets/pets/pig_preview.png' },
         items: [
           'assets/pets/placeholder_1.png',
@@ -528,12 +608,14 @@ img,
       },
       animations: {
         label: 'Simple Animations',
+        year: '2024',
         cover: { type: 'video', src: 'assets/animations/walk_cycle.mp4', poster: 'assets/animations/octopus_preview.png' },
         items: [ 'assets/animations/walk_cycle.mp4' ],
       },
       
       ads: {
         label: 'ADS Art',
+        year: '2018',
         cover: { type: 'image', src: 'assets/ads/placeholder_1.png' },
         items: [
           'assets/ads/placeholder_1.png',
@@ -543,18 +625,20 @@ img,
       },
       vector: {
         label: 'Vector Arts',
+        year: '2018',
         cover: { type: 'image', src: 'assets/vector/placeholder_1.png' },
         items: [ 'assets/vector/placeholder_1.png' ],
       },
       windows: {
         label: 'Windows',
+        year: '2016',
         cover: { type: 'image', src: 'assets/windows/placeholder_1.png' },
         items: [ 'assets/windows/placeholder_1.png' ],
       },
     };
 
     const GROUPS = {
-      gallery: ['characters', 'objects', 'pets', 'animations', 'gallery-decor'],
+      gallery: ['characters', 'objects', 'pets', 'animations'],
       art: ['ads', 'vector', 'windows'],
     };
 
@@ -594,11 +678,13 @@ img,
         ${items
           .map(
             (key) => `
-          <a href="#/gallery/${key}" class="card" aria-label="Open ${CATALOG[key]?.label ?? key}">
+          <a href="#/gallery/${key}" 
+          class="card" 
+          aria-label=" ${CATALOG[key]?.label ?? key}">
             ${elCover(key)}
             <div class="overlay">
               <div class="badge">
-                <div class="year">${y()}</div>
+                <div class="year">${CATALOG[key]?.year ?? y()}</div>
                 <div class="title">${CATALOG[key]?.label ?? key}</div>
               </div>
             </div>
