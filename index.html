@@ -120,9 +120,16 @@
     @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
 
     .grid2 { 
-      display: grid; 
-      grid-template-columns: repeat(2, minmax(500px, 1fr)); 
-      gap: 0px; }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 0;
+    }
+
+    .grid2 .card {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  min-width: 0;
+    }
   /*========================================= */
       @media (max-width: 768px) {
   .grid2 {
