@@ -362,23 +362,46 @@
        5) Modeling Characters (mc-*)
        ========================================= */
 
-       /* === базовая сетка для mc-grid (один столбец, регулируемый отступ) === */
+       /* === базовая сетка для mc-grid === */
 .mc-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 40px; 
 }
+
+
+.mc-grid .figure {
+  margin-bottom: 40px; 
+}
     .mc-header { 
-      margin-bottom: 50px; 
+      margin-bottom: 40px; 
       text-align: center; 
     }
     .mc-grid.two { 
       display: grid; 
       grid-template-columns: repeat(2, minmax(0, 1fr)); 
-      gap: 20px; 
+      gap: 40px; 
     }
+    .mc-grid.two.mc-mixed {
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  align-items: center; 
+  gap: 32px;    
+}
+
+.mc-grid.two.mc-mixed .figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-grid.two.mc-mixed .figure img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
     .mc-full { 
-      margin: 0 0 20px; 
+      margin: 0 0 40px; 
     }
     .mc-caption { 
       margin: 50px 0; 
@@ -399,7 +422,7 @@
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 700px;  /* ← регулируй эту цифру под нужную высоту */
+  max-height: 700px;
   object-fit: contain;
   margin: 0 auto;
   display: block;
@@ -799,21 +822,59 @@ if (slug === 'vector') {
         </p>
       </header>
 
-      <div class="mc-grid two">
-        <figure class="figure"><img src="assets/ads/vector_1" alt="vector_1" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_2" alt="Poster 2" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_3" alt="Poster 3" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_4" alt="Poster 4" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_5" alt="Poster 5" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_6" alt="Poster 6" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_7" alt="Poster 6" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_8" alt="Poster 6" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_9" alt="Poster 6" loading="lazy"></figure>
-        <figure class="figure"><img src="assets/ads/vector_10" alt="Poster 6" loading="lazy"></figure>
+      <div class="mc-grid">
+        <figure class="figure"><img src="assets/vector/vector_9.png" alt="Poster 6" loading="lazy"></figure>
+
+        </div>
+
+      <div class="mc-grid two mc-mixed">
+        <figure class="figure"><img src="assets/vector/vector_1.png" alt="Poster 1" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_2.png" alt="Poster 2" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_3.png" alt="Poster 3" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_4.png" alt="Poster 4" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_5.png" alt="Poster 5" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_6.png" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_7.png" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_8.png" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_9.png" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/vector/vector_10.png" alt="Poster 6" loading="lazy"></figure>
       
       </div>
 
       <div class="mc-caption">Created for the project "Flippy Knife" by Beresnev Games.</div>
+
+    
+
+     
+    </div>`;
+}
+
+ // === Windows ===
+if (slug === 'windows') {
+  const label = 'Windows';
+  return `
+    <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+        <p class="mc-intro">
+          It was supposed to be a short animation where we see what happens in different windows of a house, but it wasnt finished. Nevertheless, I want to peek into some of the windows with you :)
+        </p>
+      </header>
+
+      <div class="mc-grid">
+        <figure class="figure"><img src="assets/windows/windows_1.jpg" alt="Poster 1" loading="lazy"></figure>
+        </div>
+
+     <div class="mc-grid two mc-mixed">
+  <figure class="figure">
+    <img src="assets/windows/windows_2_1.png" alt="Poster 1" loading="lazy">
+  </figure>
+  <figure class="figure">
+    <img class="landscape-cell" src="assets/windows/windows_2_2.jpg" alt="Poster 1" loading="lazy">
+  </figure>
+</div>
+
+      <div class="mc-caption">Bye! :)</div>
 
     
 
