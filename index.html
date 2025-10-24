@@ -361,6 +361,13 @@
     /* =========================================
        5) Modeling Characters (mc-*)
        ========================================= */
+
+       /* === базовая сетка для mc-grid (один столбец, регулируемый отступ) === */
+.mc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px; 
+}
     .mc-header { 
       margin-bottom: 50px; 
       text-align: center; 
@@ -387,9 +394,16 @@
       text-align: center; 
       gap: 50px; 
     }
-
-    /* Resize images and videos in Modeling Characters */
-    .mc-grid img, 
+    
+    .mc-grid img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 700px;  /* ← регулируй эту цифру под нужную высоту */
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
     .mc-full img { 
       max-width: auto; 
       height: auto; 
@@ -744,8 +758,68 @@ img,
       const cfg = CATALOG[slug];
       const label = cfg?.label || 'Gallery';
 
+    // === ADS Art ===
+if (slug === 'ads') {
+  const label = 'ADS Art';
+  return `
+    <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+        <p class="mc-intro">
+          Artwork for game advertising.
+        </p>
+      </header>
+
+      <div class="mc-grid">
+        <figure class="figure"><img src="assets/ads/ads_1.png" alt="Poster 1" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/ads_2.png" alt="Poster 2" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/ads_3.png" alt="Poster 3" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/ads_4.png" alt="Poster 4" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/ads_5.png" alt="Poster 5" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/ads_6.png" alt="Poster 6" loading="lazy"></figure>
+      </div>
+
+      <div class="mc-caption">Created for the project "Flippy Knife" by Beresnev Games.</div>
+
     
 
+     
+    </div>`;
+}
+
+    // === VectorArt ===
+if (slug === 'vector') {
+  const label = 'Vector Arts';
+  return `
+    <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+        <p class="mc-intro">
+          Artwork for game advertising.
+        </p>
+      </header>
+
+      <div class="mc-grid two">
+        <figure class="figure"><img src="assets/ads/vector_1" alt="vector_1" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_2" alt="Poster 2" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_3" alt="Poster 3" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_4" alt="Poster 4" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_5" alt="Poster 5" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_6" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_7" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_8" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_9" alt="Poster 6" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/ads/vector_10" alt="Poster 6" loading="lazy"></figure>
+      
+      </div>
+
+      <div class="mc-caption">Created for the project "Flippy Knife" by Beresnev Games.</div>
+
+    
+
+     
+    </div>`;
+}
       // Special template for Modeling Characters
       if (slug === 'characters') {
         return `
@@ -783,7 +857,6 @@ img,
 
       <footer class="mc-footer">
         <div>Thank you for watching! :)</div>
-        <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">↑ Back to Top</a>
       </footer>
     </div>`;
 }
