@@ -231,6 +231,25 @@
       display: block; 
     }
 
+    /* === Unified headings to match .section-title === */
+.content h1,
+.content h2,
+.content h3 {
+  font-weight: 200;
+  font-size: 50px;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  color: #000000;
+  text-align: center;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0 0 50px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  display: block;
+}
+
     /* =========================================
        4) Resume page
        ========================================= */
@@ -730,51 +749,51 @@ img,
       // Special template for Modeling Characters
       if (slug === 'characters') {
         return `
-          <div class="mc">
-            <header class="mc-header">
-              <h1 class="section-title">${label}</h1>
-              <p class="mc-intro">Modeling &amp; handpaint texturing characters for the project “Gallery: Coloring book &amp; Decor”: </p>
-            </header>
+         <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+        <p class="mc-intro">Modeling &amp; handpaint texturing characters for the project “Gallery: Coloring book &amp; Decor”:</p>
+      </header>
 
-            <div class="mc-grid two">
-              <figure class="figure"><img src="assets/characters/Mother_1.png" alt="Character 1" loading="lazy"></figure>
-              <figure class="figure"><img src="assets/characters/Father_1.png" alt="Character 2" loading="lazy"></figure>
-            </div>
+      <div class="mc-grid two">
+        <figure class="figure"><img src="assets/characters/Mother_1.png" alt="Mother — pose" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/characters/Father_1.png" alt="Father — pose" loading="lazy"></figure>
+      </div>
 
-            <figure class="mc-full figure"><img src="assets/characters/Mother_solid.png" alt="Modeling sheet 1" loading="lazy"></figure>
-            <figure class="mc-full figure"><img src="assets/characters/Mother_prewiew.png" alt="Modeling sheet 2" loading="lazy"></figure>
+      <figure class="mc-full figure"><img src="assets/characters/Mother_solid.png" alt="Mother — solid" loading="lazy"></figure>
+      <figure class="mc-full figure"><img src="assets/characters/Mother_prewiew.png" alt="Mother — preview" loading="lazy"></figure>
 
-            <div class="mc-grid two">
-              <figure class="figure"><img src="assets/characters/Mother_cage.png" alt="Turntable 1" loading="lazy"></figure>
-              <figure class="figure"><img src="assets/characters/Mother_front.png" alt="Turntable 2" loading="lazy"></figure>
-            </div>
+      <div class="mc-grid two">
+        <figure class="figure"><img src="assets/characters/Mother_cage.png" alt="Mother — wireframe" loading="lazy"></figure>
+        <figure class="figure"><img src="assets/characters/Mother_front.png" alt="Mother — front view" loading="lazy"></figure>
+      </div>
 
-            <div class="mc-caption">Work process:</div>
-              <figure class="figure"><img src="assets/characters/Mother_workprocess.png" alt="Process 1" loading="lazy"></figure>
-            </div>
+      <div class="mc-caption">Work process:</div>
+      <figure class="figure"><img src="assets/characters/Mother_workprocess.png" alt="Work process" loading="lazy"></figure>
 
-            <div class="mc-caption">The final character animation after rigging:</div>
-            <div class="mc-grid two">
-              <figure class="figure"><video controls data-first-poster src="assets/characters/Mother_video.mp4"></video></figure>
-              <figure class="figure"><video controls data-first-poster src="assets/characters/Father_video.mp4"></video></figure>
-            </div>
+      <div class="mc-caption">The final character animation after rigging:</div>
+      <div class="mc-grid two">
+        <figure class="figure">
+          <video controls preload="metadata" playsinline data-first-poster src="assets/characters/Mother_video.mp4"></video>
+        </figure>
+        <figure class="figure">
+          <video controls preload="metadata" playsinline data-first-poster src="assets/characters/Father_video.mp4"></video>
+        </figure>
+      </div>
 
-            <footer class="mc-footer">
-              <div>Thank you for watching! :)</div>
-              <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });
-            </footer>
-          </div>`;
-      }
+      <footer class="mc-footer">
+        <div>Thank you for watching! :)</div>
+        <a href="#/gallery/characters" class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">↑ Back to Top</a>
+      </footer>
+    </div>`;
+}
 
       // Generic gallery
-      const header = `
-        <div style="display:flex;align-items:end;justify-content:space-between;margin-bottom:16px">
-          <div>
-            <h1 class="h1">${label}</h1>
-            <div class="sub">${slug}</div>
-          </div>
-          <a class="back" href="#/">← Back to home</a>
-        </div>`;
+     const header = `
+  <header class="mc-header">
+    <h1 class="section-title">${label}</h1>
+  </header>
+`;
 
       if (slug === 'animations') {
         return (
