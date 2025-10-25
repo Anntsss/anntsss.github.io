@@ -388,6 +388,10 @@
   gap: 32px;    
 }
 
+.mc-grid.two.mc-mixed.reverse {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+}
+
 .mc-grid.two.mc-mixed .figure {
   display: flex;
   align-items: center;
@@ -400,6 +404,36 @@
   max-width: 100%;
   object-fit: contain;
 }
+
+
+
+
+.mc-grid.three {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px; 
+  align-items: center;
+}
+
+.mc-grid.three .figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mc-grid.three .figure img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
+
+
+
+
+
+
     .mc-full { 
       margin: 0 0 40px; 
     }
@@ -827,7 +861,7 @@ if (slug === 'vector') {
 
         </div>
 
-      <div class="mc-grid two mc-mixed">
+      <div class="mc-grid two">
         <figure class="figure"><img src="assets/vector/vector_1.png" alt="Poster 1" loading="lazy"></figure>
         <figure class="figure"><img src="assets/vector/vector_2.png" alt="Poster 2" loading="lazy"></figure>
         <figure class="figure"><img src="assets/vector/vector_3.png" alt="Poster 3" loading="lazy"></figure>
@@ -865,6 +899,8 @@ if (slug === 'windows') {
         <figure class="figure"><img src="assets/windows/windows_1.jpg" alt="Poster 1" loading="lazy"></figure>
         </div>
 
+
+
      <div class="mc-grid two mc-mixed">
   <figure class="figure">
     <img src="assets/windows/windows_2_1.png" alt="Poster 1" loading="lazy">
@@ -873,6 +909,44 @@ if (slug === 'windows') {
     <img class="landscape-cell" src="assets/windows/windows_2_2.jpg" alt="Poster 1" loading="lazy">
   </figure>
 </div>
+
+
+
+<div class="mc-grid two mc-mixed reverse">
+   <figure class="figure">
+    <img class="landscape-cell" src="assets/windows/windows_3_1.jpg" alt="Poster 1" loading="lazy">
+  </figure>
+
+  <figure class="figure">
+    <img src="assets/windows/windows_3_2.png" alt="Poster 1" loading="lazy">
+  </figure>
+</div>
+
+
+
+<div class="mc-grid three">
+  <figure class="figure"><img src="assets/windows/windows_3-1.png" alt=""></figure>
+  <figure class="figure"><img src="assets/windows/windows_3-2.png" alt=""></figure>
+  <figure class="figure"><img src="assets/windows/windows_3-3.png" alt=""></figure>
+</div>
+
+
+
+ <div class="mc-grid">
+        <figure class="figure"><img src="assets/windows/windows_4.png" alt="Poster 1" loading="lazy"></figure>
+        </div>
+
+
+
+ <div class="mc-grid">
+        <figure class="figure"><img src="assets/windows/windows_5.png" alt="Poster 1" loading="lazy"></figure>
+        </div>
+
+
+
+
+
+
 
       <div class="mc-caption">Bye! :)</div>
 
