@@ -815,6 +815,136 @@ img,
       const cfg = CATALOG[slug];
       const label = cfg?.label || 'Gallery';
 
+
+
+
+
+
+ // === Game Objects ===
+if (slug === 'objects') {
+  const label = 'Game objects';
+  return `
+    <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+
+ <p class="mc-intro">
+          Modeling objects, created for the project "Gallery: Coloring Book & Decor".
+        </p>
+
+      </header>
+
+      <div class="mc-grid"><figure class="figure"><img src="assets/objects/MiaRoom.png" alt="Poster 1" loading="lazy"></figure></div>
+
+      <div class="mc-caption">Ready location in the game "Gallery: Coloring book & Decor":</div>
+
+
+       <figure class="figure">
+          <video controls preload="metadata" playsinline data-first-poster src="assets/objects/video_hall.mp4"></video>
+        </figure>
+
+
+
+      <div class="mc-caption">Modeling objects and locations:</div>
+
+      <div class="mc-grid two">
+      <figure class="figure"><img src="assets/objects/Oven.png" alt="Poster 1" loading="lazy"></figure>
+      <figure class="figure"><img class="landscape-cell" src="assets/objects/Flowers.png" alt="Poster 1" loading="lazy"></figure></div>
+      
+      <div class="mc-grid"><figure class="figure"><img src="assets/objects/Room_2.png" alt="Poster 1" loading="lazy"></figure></div>
+
+      <div class="mc-grid two">
+      <figure class="figure"><img src="assets/objects/House_1.png" alt="Poster 1" loading="lazy"></figure>
+      <figure class="figure"><img class="landscape-cell" src="assets/objects/House_2.png" alt="Poster 1" loading="lazy"></figure></div>
+
+      <div class="mc-caption">Model based on a sketch:</div>
+      <div class="mc-grid"><figure class="figure"><img src="assets/objects/Egypt_sketch.jpg" alt="Poster 1" loading="lazy"></figure></div>
+      <div class="mc-grid"><figure class="figure"><img src="assets/objects/Egypt_model.png" alt="Poster 1" loading="lazy"></figure></div>
+  
+
+    
+
+     
+    </div>`;
+}
+
+
+
+
+
+
+
+
+ // === Pets ===
+if (slug === 'pets') {
+  const label = 'Pets';
+  return `
+    <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+
+ <p class="mc-intro">
+          Modeling & Animations.
+        </p>
+
+      </header>
+
+      <div class="mc-grid"><figure class="figure"><img src="assets/pets/panda.png" alt="Poster 1" loading="lazy"></figure></div>
+
+      <div class="mc-caption">Example of an ads for Gallery, a game featuring finished models:</div>
+      
+      <figure class="figure"><video controls preload="metadata" playsinline data-first-poster src="assets/pets/red_panda_video.mp4"></video></figure>
+
+      <div class="mc-grid three">
+      <figure class="figure"><img src="assets/pets/pig.png" alt="Poster 1" loading="lazy"></figure>
+      <figure class="figure"><img src="assets/pets/korgy.png" alt="Poster 1" loading="lazy"></figure>
+      <figure class="figure"><img src="assets/pets/frog.png" alt="Poster 1" loading="lazy"></figure>
+      </div>
+
+
+      <div class="mc-caption">Animation for pet:</div>
+      
+      
+      <figure class="figure"><video controls preload="metadata" playsinline data-first-poster src="assets/pets/pegasus.mp4"></video></figure>
+    
+
+  
+     
+    </div>`;
+}
+
+
+
+
+
+ // === Simple Animations ===
+if (slug === 'animations') {
+  const label = 'animations';
+  return `
+    <div class="mc">
+      <header class="mc-header">
+        <h1 class="section-title">${label}</h1>
+
+ <p class="mc-intro">Simple animations for Gallery game objects.</p>
+</header>
+
+<figure class="figure"><video controls preload="metadata" playsinline data-first-poster src="assets/animations/octopus.mp4"></video></figure>
+<figure class="figure"><video controls preload="metadata" playsinline data-first-poster src="assets/animations/tennis.mp4"></video></figure>
+<figure class="figure"><video controls preload="metadata" playsinline data-first-poster src="assets/animations/studio.mp4"></video></figure>
+<figure class="figure"><video controls preload="metadata" playsinline data-first-poster src="assets/animations/scene.mp4"></video></figure>
+
+
+
+
+
+
+</div>`;
+}
+
+
+
+
+
     // === ADS Art ===
 if (slug === 'ads') {
   const label = 'ADS Art';
@@ -851,14 +981,10 @@ if (slug === 'vector') {
     <div class="mc">
       <header class="mc-header">
         <h1 class="section-title">${label}</h1>
-        <p class="mc-intro">
-          Artwork for game advertising.
-        </p>
       </header>
 
       <div class="mc-grid">
         <figure class="figure"><img src="assets/vector/vector_9.png" alt="Poster 6" loading="lazy"></figure>
-
         </div>
 
       <div class="mc-grid two">
@@ -872,12 +998,9 @@ if (slug === 'vector') {
         <figure class="figure"><img src="assets/vector/vector_8.png" alt="Poster 6" loading="lazy"></figure>
         <figure class="figure"><img src="assets/vector/vector_9.png" alt="Poster 6" loading="lazy"></figure>
         <figure class="figure"><img src="assets/vector/vector_10.png" alt="Poster 6" loading="lazy"></figure>
-      
       </div>
 
-      <div class="mc-caption">Created for the project "Flippy Knife" by Beresnev Games.</div>
 
-    
 
      
     </div>`;
@@ -955,7 +1078,7 @@ if (slug === 'windows') {
      
     </div>`;
 }
-      // Special template for Modeling Characters
+      // Modeling Characters
       if (slug === 'characters') {
         return `
          <div class="mc">
