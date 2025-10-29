@@ -1282,7 +1282,6 @@ The gaming industry evolves constantly, and staying up to date means continuousl
   if (!app) return;
 
   const { base, slug } = parseHash();
-  setActiveSidebar({ base, slug });
 
   // если хэша нет или это '#/' → редиректим на home
   if (!base) {
@@ -1487,23 +1486,26 @@ The gaming industry evolves constantly, and staying up to date means continuousl
 
 
 <script>
-/* Highlight ONLY the selected item.
-   Group titles get active ONLY for #/group/... routes. */
 function setActiveNav() {
   const links = Array.from(document.querySelectorAll('.sidebar a, .nav a'));
-  links.forEach(a => a.classList.remove('active'));
+  links.forEach(a => {
+    a.classList.remove('active');
+    a.removeAttribute('aria-current');
+  });
 
-  const hash = window.location.hash || '#/';
+  const hash = window.location.hash || '#/home';
 
-  // 1) Если открыт именно экран группы — активируем ТОЛЬКО заголовок группы
+  // Экран группы: активируем только заголовок группы
   if (hash.startsWith('#/group/')) {
     const groupLink = links.find(a => a.getAttribute('href') === hash);
-    if (groupLink) groupLink.classList.add('active');
-    return; // и выходим — ничего больше не подсвечиваем
+    if (groupLink) {
+      groupLink.classList.add('active');
+      groupLink.setAttribute('aria-current', 'page');
+    }
+    return;
   }
 
-  // 2) Во всех остальных случаях активируем ТОЛЬКО конкретный пункт
-  // Ищем точное совпадение, затем startsWith, но исключаем ссылки-группы
+  // Иначе — активируем точный пункт
   let current =
     links.find(a => a.getAttribute('href') === hash) ||
     links.find(a => {
@@ -1511,14 +1513,16 @@ function setActiveNav() {
       return !href.startsWith('#/group/') && hash.startsWith(href);
     });
 
-  if (current) current.classList.add('active');
+  if (current) {
+    current.classList.add('active');
+    current.setAttribute('aria-current', 'page');
+  }
 }
 
-// уже должны быть эти вызовы:
 window.addEventListener('hashchange', setActiveNav);
 document.addEventListener('DOMContentLoaded', setActiveNav);
 
-// если есть route(), вызываем после рендера
+// Перехватываем route(), чтобы после рендера обновлять подсветку
 if (typeof route === 'function') {
   const originalRoute = route;
   window.route = function () {
