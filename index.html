@@ -110,15 +110,6 @@
        3) Grids & Cards
        ========================================= */
 
-    .grid 
-    { 
-      display: grid; 
-      grid-template-columns: 1fr; 
-      gap: 0px; 
-    }
-    @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-
     .grid2 { 
         display: grid;
         grid-template-columns: repeat(2, 1fr); 
@@ -159,38 +150,6 @@
       background: #fff; 
       box-shadow: 0 1px 4px rgba(0,0,0,.04); 
     }
-    .grid a.card { color: inherit; }
-
-   .overlay{
-  position: absolute; 
-  inset: 0;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.75);           
-  opacity: 0;
-  transition: opacity .25s ease;
-  text-align: center;
-}
-.card:hover .overlay { 
-  opacity: 1; 
-  background: rgba(255, 255, 255, 0.75); /* 75% */
-}
-
-.badge{
-  background: transparent;    
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-    .badge .year { font-size: 12px; color: #666; letter-spacing: .12em; }
-    .badge .title { font-size: 16px; font-weight: 600; color: #111; text-transform: uppercase; letter-spacing: .08em; }
-
-    .columns { column-count: 1; column-gap: 16px; }
-    @media (min-width: 640px) { .columns { column-count: 2; } }
-    @media (min-width: 1024px) { .columns { column-count: 3; } }
-
     .figure { 
       break-inside: avoid; 
       margin: 0 0 16px; 
@@ -697,60 +656,37 @@ img,
         label: 'Modeling Characters',
         year: '2023',
         cover: { type: 'image', src: 'assets/characters/characters_preview.png' },
-        items: [
-          'assets/characters/placeholder_1.png',
-          'assets/characters/placeholder_2.png',
-          'assets/characters/placeholder_3.png',
-        ],
       },
       objects: {
         label: 'Game objects',
         year: '2022',
         cover: { type: 'image', src: 'assets/objects/room_preview.png' },
-        items: [
-          'assets/objects/placeholder_1.png',
-          'assets/objects/placeholder_2.png',
-          'assets/objects/placeholder_3.png',
-        ],
       },
       pets: {
         label: 'Pets',
         year: '2023',
         cover: { type: 'image', src: 'assets/pets/pig_preview.png' },
-        items: [
-          'assets/pets/placeholder_1.png',
-          'assets/pets/placeholder_2.png',
-          'assets/pets/placeholder_3.png',
-        ],
       },
       animations: {
         label: 'Simple Animations',
         year: '2024',
         cover: { type: 'video', src: 'assets/animations/walk_cycle.mp4', poster: 'assets/animations/octopus_preview.png' },
-        items: [ 'assets/animations/walk_cycle.mp4' ],
       },
       
       ads: {
         label: 'ADS Art',
         year: '2018',
         cover: { type: 'image', src: 'assets/ads/lil_preview.png' },
-        items: [
-          'assets/ads/placeholder_1.png',
-          'assets/ads/placeholder_2.png',
-          'assets/ads/placeholder_3.png',
-        ],
       },
       vector: {
         label: 'Vector Arts',
         year: '2018',
         cover: { type: 'image', src: 'assets/vector/picnic_preview.png' },
-        items: [ 'assets/vector/placeholder_1.png' ],
       },
       windows: {
         label: 'Windows',
         year: '2016',
         cover: { type: 'image', src: 'assets/windows/window_preview.png' },
-        items: [ 'assets/windows/placeholder_1.png' ],
       },
     };
 
@@ -788,11 +724,9 @@ img,
   `;
 }
 
-    function renderGrid(keys = null) {
-      const items = Array.isArray(keys) ? keys : Object.keys(CATALOG);
-      const gridClass = Array.isArray(keys) ? 'grid2' : 'grid';
-      return `<div class="${gridClass}">
-        ${items
+    function renderGrid(keys) {
+      return `<div class="grid2">
+        ${keys
           .map(
             (key) => `
           <a href="#/gallery/${key}" 
@@ -1119,28 +1053,7 @@ if (slug === 'windows') {
     </div>`;
 }
 
-      // Generic gallery
-     const header = `
-  <header class="mc-header">
-    <h1 class="section-title">${label}</h1>
-  </header>
-`;
-
-      if (slug === 'animations') {
-        return (
-          header +
-          `<div class="grid">${(cfg?.items || [])
-            .map((src) => `<div class="card"><video controls src="${src}"></video></div>`)
-            .join('')}</div>`
-        );
-      }
-
-      return (
-        header +
-        `<div class="columns">${(cfg?.items || [])
-          .map((src) => `<figure class="figure"><img src="${src}" alt="${label}" loading="lazy"></figure>`)
-          .join('')}</div>`
-      );
+      return `<header class="mc-header"><h1 class="section-title">${label}</h1></header>`;
     }
 
     function renderContact() {
@@ -1261,23 +1174,7 @@ The gaming industry evolves constantly, and staying up to date means continuousl
       return { base, slug };
     }
 
-    function setActiveSidebar({ base, slug }) {
-      // remove previous
-      document.querySelectorAll('.group-title, .nav a').forEach((el) => el.classList.remove('active'));
-
-      const sel = [];
-      if (!base) sel.push('');
-      if (base === 'group' && slug) sel.push(`a.group-title[href*="#/group/${slug}"]`);
-      if (base === 'about') sel.push('a.group-title[href="#/about"]');
-      if (base === 'contact') sel.push('a.group-title[href="#/contact"]');
-
-      sel.forEach((s) => {
-        const el = s && document.querySelector(s);
-        if (el) el.classList.add('active');
-      });
-    }
-
-   function route() {
+    function route() {
   const app = document.getElementById('app');
   if (!app) return;
 
@@ -1363,55 +1260,6 @@ The gaming industry evolves constantly, and staying up to date means continuousl
 
     window.addEventListener('DOMContentLoaded', generateFirstFramePosters);
   </script>
-
-  <!-- Smart Back-to-Top: desktop = top of page, mobile = sidebar top -->
-  <script>
-(function () {
-  function scrollToTarget() {
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    if (isMobile) {
-      const menu = document.querySelector('.sidebar');
-      if (menu) {
-        const offset = 10; // small gap below the top edge
-        const y = menu.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-        // Safari/iOS fix: force an extra smooth scroll to the same spot
-        setTimeout(() => window.scrollTo({ top: y, behavior: 'smooth' }), 80);
-        return;
-      }
-    }
-    // Desktop: scroll to absolute top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function updateBackToTopButton() {
-    const button = document.querySelector('.back-to-top');
-    if (!button) return;
-
-    const isMobile = window.matchMedia('(max-width: 900px)').matches;
-    button.textContent = isMobile ? '↑ Main menu' : '↑ Back to Top';
-
-    // Rebuild button to clear old listeners
-    const newButton = button.cloneNode(true);
-    button.parentNode.replaceChild(newButton, button);
-
-    newButton.addEventListener('click', function (e) {
-      e.preventDefault();
-      scrollToTarget();
-    });
-  }
-
-  // Run once DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateBackToTopButton);
-  } else {
-    updateBackToTopButton();
-  }
-
-  // Update dynamically on resize
-  window.addEventListener('resize', updateBackToTopButton);
-})();
-</script>
 
 <script>
 (function () {
